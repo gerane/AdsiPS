@@ -107,7 +107,7 @@ function Get-ADSIGroup
 	param
 	(
 		[Parameter(ParameterSetName = 'Identity')]
-		[string]$Identity,
+		[System.String]$Identity,
 
 		[Alias("RunAs")]
 		[System.Management.Automation.PSCredential]
@@ -204,7 +204,7 @@ function Get-ADSIGroup
 		}
 		CATCH
 		{
-			Write-Error $error[0]
+			$PSCmdlet.ThrowTerminatingError($_)
 		}
 	}
 }

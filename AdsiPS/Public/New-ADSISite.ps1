@@ -39,16 +39,16 @@
 	(
 		[Parameter(Mandatory = $true)]
 		[Alias('Name')]
-		[String]$SiteName,
+		[System.String]$SiteName,
 
-		[String]$Location,
+		[System.String]$Location,
 
 		[Alias("RunAs")]
 		[System.Management.Automation.PSCredential]
 		[System.Management.Automation.Credential()]
 		$Credential = [System.Management.Automation.PSCredential]::Empty,
 
-		[String]$ForestName
+		[System.String]$ForestName
 	)
 	
 	BEGIN
@@ -78,8 +78,7 @@
 		}
 		CATCH
 		{
-			Write-Error $Error[0]
-			break
+			$PSCmdlet.ThrowTerminatingError($_)
 		}
 	}
 	END

@@ -31,7 +31,7 @@ function Test-ADSIUserIsLockedOut
 	param
 	(
 		[Parameter(Mandatory = $true)]
-		[string]$Identity,
+		[System.String]$Identity,
 		
 		[Alias("RunAs")]
 		[System.Management.Automation.PSCredential]

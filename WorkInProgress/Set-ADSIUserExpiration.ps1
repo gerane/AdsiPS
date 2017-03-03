@@ -12,7 +12,7 @@ PARAM(
     [Alias("RunAs")]
 	[System.Management.Automation.Credential()]
 	$Credential = [System.Management.Automation.PSCredential]::Empty,
-    [String]$DomainName)
+    [System.String]$DomainName)
 
     BEGIN
     {
@@ -38,7 +38,7 @@ PARAM(
             (Get-ADSIUser -Identity $Identity @ContextSplatting).Save($Context)
         }
         CATCH{
-            Write-Error $Error[0]
+            $PSCmdlet.ThrowTerminatingError($_)
         }
     }
 }

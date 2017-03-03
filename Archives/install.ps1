@@ -1,4 +1,4 @@
-param([string]$InstallDirectory)
+param([System.String]$InstallDirectory)
 
 $ModuleName = "AdsiPs"
 

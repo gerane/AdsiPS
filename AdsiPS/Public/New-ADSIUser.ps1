@@ -84,37 +84,37 @@
 	param
 	(
 		[Parameter(Mandatory = $true)]
-		[String]$SamAccountName,
+		[System.String]$SamAccountName,
 
 		[System.Security.SecureString]$AccountPassword,
 
-		[switch]$Enabled = $false,
+		[System.Management.Automation.SwitchParameter]$Enabled = $false,
 
-		[String]$GivenName,
+		[System.String]$GivenName,
 
-		[String]$SurName,
+		[System.String]$SurName,
 
-		[String]$UserPrincipalName,
+		[System.String]$UserPrincipalName,
 
-		[String]$DisplayName,
+		[System.String]$DisplayName,
 
-		[String]$Name,
+		[System.String]$Name,
 
-		[Switch]$PasswordNeverExpires = $false,
+		[System.Management.Automation.SwitchParameter]$PasswordNeverExpires = $false,
 
-		[Switch]$UserCannotChangePassword = $false,
+		[System.Management.Automation.SwitchParameter]$UserCannotChangePassword = $false,
 
-		[Switch]$PasswordNotRequired = $false,
+		[System.Management.Automation.SwitchParameter]$PasswordNotRequired = $false,
 
 		[System.Management.Automation.PSCredential]
 		[System.Management.Automation.Credential()]
 		$Credential = [System.Management.Automation.PSCredential]::Empty,
 
-		[String]$DomainName,
+		[System.String]$DomainName=[System.DirectoryServices.ActiveDirectory.Domain]::Getcurrentdomain(),
 
-		[String]$TargetPath,
+		[System.String]$TargetPath,
 		
-		[Switch]$Passthru
+		[System.Management.Automation.SwitchParameter]$Passthru
 	)
 	
 	BEGIN

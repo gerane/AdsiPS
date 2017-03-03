@@ -63,7 +63,7 @@
 		}#TRY
 		CATCH
 		{
-			
+			$PSCmdlet.ThrowTerminatingError($_)
 		}
 	}#PROCESS
 }

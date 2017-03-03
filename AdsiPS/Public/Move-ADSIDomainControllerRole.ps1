@@ -54,7 +54,7 @@
 	param
 	(
 		[Parameter(Mandatory = $true)]
-		[string]$ComputerName,
+		[System.String]$ComputerName,
 		
 		[Alias("RunAs")]
 		[System.Management.Automation.PSCredential]
@@ -64,7 +64,7 @@
 		[Parameter(Mandatory = $true)]
 		[System.Directoryservices.ActiveDirectory.ActiveDirectoryRole[]]$Role,
 		
-		[Switch]$Force
+		[System.Management.Automation.SwitchParameter]$Force
 	)
 	
 	PROCESS
@@ -101,8 +101,7 @@
 		}
 		CATCH
 		{
-			Write-Error -Message "[Enable-ADSIDomainControllerGlobalCatalog][PROCESS] Something wrong happened"
-			$Error[0].Exception.Message
+			$PSCmdlet.ThrowTerminatingError($_)
 		}
 	}
 }

@@ -30,14 +30,14 @@
 [CmdletBinding()]
 PARAM(
     [parameter(Mandatory=$true)]
-    [String]$SiteName,
+    [System.String]$SiteName,
 
     [Alias("RunAs")]
     [System.Management.Automation.PSCredential]
     [System.Management.Automation.Credential()]
     $Credential = [System.Management.Automation.PSCredential]::Empty,
 
-    [String]$ForestName
+    [System.String]$ForestName
 
 )
     BEGIN{
@@ -56,8 +56,7 @@ PARAM(
             (Get-ADSISite -Name $SiteName @ContextSplatting).Delete()
         }
         CATCH{
-            Write-Error $Error[0]
-            break
+            $PSCmdlet.ThrowTerminatingError($_)
         }
     }
     END

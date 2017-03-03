@@ -52,19 +52,19 @@
 	[CmdletBinding(DefaultParameterSetName = "All")]
 	PARAM (
 		[Parameter(ParameterSetName = "Name")]
-		[String]$Name,
+		[System.String]$Name,
 		
 		[Parameter(ParameterSetName = "DistinguishedName")]
-		[String]$DistinguishedName,
+		[System.String]$DistinguishedName,
 		
 		[Parameter(ParameterSetName = "All")]
-		[String]$All,
+		[System.String]$All,
 		
-		[Switch]$GroupPolicyInheritanceBlocked,
+		[System.Management.Automation.SwitchParameter]$GroupPolicyInheritanceBlocked,
 		
 		[Parameter(ValueFromPipelineByPropertyName = $true)]
 		[Alias("Domain", "DomainDN")]
-		[String]$DomainDistinguishedName = $(([adsisearcher]"").Searchroot.path),
+		[System.String]$DomainDistinguishedName = $(([adsisearcher]"").Searchroot.path),
 		
 		[Alias("RunAs")]
 		[System.Management.Automation.PSCredential]
@@ -130,18 +130,18 @@
 				# Define the properties
 				#  The properties need to be lowercase!!!!!!!!
 				$Properties = @{
-					"Name" = $ou.properties.name -as [string]
-					"DistinguishedName" = $ou.properties.distinguishedname -as [string]
-					"ADsPath" = $ou.properties.adspath -as [string]
-					"ObjectCategory" = $ou.properties.objectcategory -as [string]
-					"ObjectClass" = $ou.properties.objectclass -as [string]
+					"Name" = $ou.properties.name -as [System.String]
+					"DistinguishedName" = $ou.properties.distinguishedname -as [System.String]
+					"ADsPath" = $ou.properties.adspath -as [System.String]
+					"ObjectCategory" = $ou.properties.objectcategory -as [System.String]
+					"ObjectClass" = $ou.properties.objectclass -as [System.String]
 					"ObjectGuid" = $ou.properties.objectguid
-					"WhenCreated" = $ou.properties.whencreated -as [string] -as [datetime]
-					"WhenChanged" = $ou.properties.whenchanged -as [string] -as [datetime]
-					"usncreated" = $ou.properties.usncreated -as [string]
-					"usnchanged" = $ou.properties.usnchanged -as [string]
+					"WhenCreated" = $ou.properties.whencreated -as [System.String] -as [datetime]
+					"WhenChanged" = $ou.properties.whenchanged -as [System.String] -as [datetime]
+					"usncreated" = $ou.properties.usncreated -as [System.String]
+					"usnchanged" = $ou.properties.usnchanged -as [System.String]
 					"dscorepropagationdata" = $ou.properties.dscorepropagationdata
-					"instancetype" = $ou.properties.instancetype -as [string]
+					"instancetype" = $ou.properties.instancetype -as [System.String]
 				}
 				
 				# Output the info
@@ -150,8 +150,7 @@
 		}#TRY
 		CATCH
 		{
-			Write-Warning -Message "[PROCESS] Something wrong happened!"
-			Write-Warning -Message $error[0].Exception.Message
+			$PSCmdlet.ThrowTerminatingError($_)
 		}
 	}#PROCESS
 	END

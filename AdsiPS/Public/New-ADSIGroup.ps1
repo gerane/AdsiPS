@@ -35,6 +35,9 @@
 .PARAMETER DomainName
 	Specifies if you want to specifies alternative DomainName
 
+.PARAMETER TargetPath
+	Specifies the Distinguished Name where the object should be created
+
 .EXAMPLE
 	PS C:\> New-ADSIGroup -Name "TestfromADSIPS3" -Description "some description" -GroupScope Local -IsSecurityGroup
 
@@ -52,26 +55,28 @@
 	param
 	(
 		[Parameter(Mandatory = $true)]
-		$Name,
+		[System.String]$Name,
 
-		[String]$DisplayName,
+		[System.String]$DisplayName,
 
-		[String]$UserPrincipalName,
+		[System.String]$UserPrincipalName,
 
-		[String]$Description,
+		[System.String]$Description,
 
 		[Parameter(Mandatory = $true)]
 		[system.directoryservices.accountmanagement.groupscope]$GroupScope,
-		[switch]$IsSecurityGroup = $true,
+		[System.Management.Automation.SwitchParameter]$IsSecurityGroup,
 
-		[switch]$Passthru,
+		[System.Management.Automation.SwitchParameter]$Passthru,
 
 		[Alias("RunAs")]
 		[System.Management.Automation.PSCredential]
 		[System.Management.Automation.Credential()]
 		$Credential = [System.Management.Automation.PSCredential]::Empty,
 
-		[String]$DomainName
+		[System.String]$DomainName=[System.DirectoryServices.ActiveDirectory.Domain]::Getcurrentdomain(),
+
+		[System.String]$TargetPath
 	)
 	
 	BEGIN
@@ -83,6 +88,7 @@
 		
 		IF ($PSBoundParameters['Credential']) { $ContextSplatting.Credential = $Credential }
 		IF ($PSBoundParameters['DomainName']) { $ContextSplatting.DomainName = $DomainName }
+		IF ($PSBoundParameters['TargetPath']) { $ContextSplatting.Container = $TargetPath }
 		
 		$Context = New-ADSIPrincipalContext @ContextSplatting
 	}
@@ -94,16 +100,18 @@
 			if ($PSCmdlet.ShouldProcess($Name, "Create Group"))
 			{
 				$newGroup = [System.DirectoryServices.AccountManagement.GroupPrincipal]::new($Context, $Name)
-				$newGroup.Description = $Description
 				$newGroup.GroupScope = $GroupScope
-				$newGroup.IsSecurityGroup = $IsSecurityGroup
-				$newGroup.DisplayName
+				
+				
 				#$newGroup.DistinguishedName = 
 				#$newGroup.Members
 				$newGroup.SamAccountName = $Name
 				
 				IF ($PSBoundParameters['UserPrincipalName']) { $newGroup.UserPrincipalName = $UserPrincipalName }
-				
+				IF ($PSBoundParameters['Description']){$newGroup.Description = $Description}
+				IF ($PSBoundParameters['DisplayName']){$newGroup.DisplayName = $DisplayName}
+				IF ($PSBoundParameters['IsSecurityGroup']){$newGroup.IsSecurityGroup = $IsSecurityGroup}
+
 				# Push to ActiveDirectory
 				$newGroup.Save($Context)
 				
@@ -116,7 +124,7 @@
 		}
 		CATCH
 		{
-			Write-Error $Error[0]
+			$PSCmdlet.ThrowTerminatingError($_)
 		}
 		
 	}

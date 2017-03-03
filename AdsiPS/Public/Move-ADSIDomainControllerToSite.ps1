@@ -48,7 +48,7 @@
 	PARAM
 	(
 		[Parameter(Mandatory)]
-		[string]$ComputerName,
+		[System.String]$ComputerName,
 		
 		[Alias("RunAs")]
 		[System.Management.Automation.PSCredential]
@@ -56,7 +56,7 @@
 		$Credential = [System.Management.Automation.PSCredential]::Empty,
 		
 		[Parameter(Mandatory = $true)]
-		[string]$Site
+		[System.String]$Site
 	)
 	PROCESS
 	{
@@ -74,8 +74,7 @@
 		}
 		CATCH
 		{
-			Write-Error -Message "[Move-ADSIDomainControllerToSite][PROCESS] Something wrong happened"
-			$Error[0].Exception.Message
+			$PSCmdlet.ThrowTerminatingError($_)
 		}
 	}
 }

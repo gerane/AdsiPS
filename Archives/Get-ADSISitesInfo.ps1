@@ -49,7 +49,7 @@
 #>	
 	[CmdletBinding()]
 	param ([Parameter(Mandatory = $true)]
-		[string]$ComputerName = $null,
+		[System.String]$ComputerName = $null,
 		
 		[Management.Automation.PSCredential]
 		$Credential = $null

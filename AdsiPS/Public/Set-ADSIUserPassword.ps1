@@ -51,7 +51,7 @@
         [System.Management.Automation.Credential()]
 		$Credential = [System.Management.Automation.PSCredential]::Empty,
 
-		[String]$DomainName)
+		[System.String]$DomainName)
 	
 	BEGIN
 	{
@@ -73,7 +73,7 @@
 		}
 		CATCH
 		{
-			Write-Error $Error[0]
+			$PSCmdlet.ThrowTerminatingError($_)
 		}
 	}
 }
