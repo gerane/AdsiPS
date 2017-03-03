@@ -1,6 +1,5 @@
 ﻿function New-ADSIUser
 {
-
 <#
 .SYNOPSIS
 	Function to create a new User
@@ -50,11 +49,20 @@
 	Specifies the alternative Domain where the user should be created
 	By default it will use the current domain.
 
+.PARAMETER TargetPath
+	Specifies the Distinguished Name where the object should be created
+
 .PARAMETER Passthru
 	Specifies if you want to see the object created after running the command.
 
 .EXAMPLE
 	PS C:\> New-ADSIUser -SamAccountName "fxtest04" -Enabled -AccountPassword (Read-Host -AsSecureString "AccountPassword") -Passthru
+
+.EXAMPLE
+	PS C:\> New-ADSIUser -SamAccountName "fxtest04" -Enabled -AccountPassword (Read-Host -AsSecureString "AccountPassword") -Passthru
+
+	# You can test the credential using the following function
+	Test-ADSICredential -AccountName "fxtest04" -AccountPassword (Read-Host -AsSecureString "AccountPassword")
 
 .EXAMPLE
 	PS C:\> New-ADSIUser -SamAccountName "fxtest04" -Enabled -AccountPassword (Read-Host -AsSecureString "AccountPassword") -Passthru
@@ -103,6 +111,8 @@
 		$Credential = [System.Management.Automation.PSCredential]::Empty,
 
 		[String]$DomainName,
+
+		[String]$TargetPath,
 		
 		[Switch]$Passthru
 	)
@@ -116,7 +126,7 @@
 		
 		IF ($PSBoundParameters['Credential']) { $ContextSplatting.Credential = $Credential }
 		IF ($PSBoundParameters['DomainName']) { $ContextSplatting.DomainName = $DomainName }
-		
+		IF ($PSBoundParameters['TargetPath']) { $ContextSplatting.Container = $TargetPath }
 		$Context = New-ADSIPrincipalContext @ContextSplatting
 		
 	}
@@ -155,8 +165,7 @@
 		}
 		CATCH
 		{
-			Write-Error $Error[0]
-			break
+			$PSCmdlet.ThrowTerminatingError($_)
 		}
 	}
 	END
