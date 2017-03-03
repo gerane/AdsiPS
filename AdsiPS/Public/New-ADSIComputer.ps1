@@ -29,9 +29,6 @@ function New-ADSIComputer
 .PARAMETER DomainName
 	Specifies if you want to specifies alternative DomainName
 
-.PARAMETER TargetPath
-	Specifies the Distinguished Name where the object should be created
-
 .EXAMPLE
 	New-ADSIComputer FXTEST01 -Description 'Dev system'
 
@@ -68,22 +65,20 @@ function New-ADSIComputer
 		[Parameter(Mandatory = $true)]
 		$Name,
 
-		[System.String]$DisplayName,
+		[String]$DisplayName,
 
-		[System.String]$Description,
+		[String]$Description,
 
-		[System.Management.Automation.SwitchParameter]$Passthru,
+		[switch]$Passthru,
 
-		[System.Management.Automation.SwitchParameter]$Enable,
+		[Switch]$Enable,
 
 		[Alias("RunAs")]
 		[System.Management.Automation.PSCredential]
 		[System.Management.Automation.Credential()]
 		$Credential = [System.Management.Automation.PSCredential]::Empty,
 		
-		[System.String]$DomainName=[System.DirectoryServices.ActiveDirectory.Domain]::Getcurrentdomain(),
-
-		[System.String]$TargetPath
+		[String]$DomainName
 	)
 	
 	BEGIN
@@ -95,7 +90,6 @@ function New-ADSIComputer
 		
 		IF ($PSBoundParameters['Credential']) { $ContextSplatting.Credential = $Credential }
 		IF ($PSBoundParameters['DomainName']) { $ContextSplatting.DomainName = $DomainName }
-		IF ($PSBoundParameters['TargetPath']) { $ContextSplatting.Container = $TargetPath }
 		
 		$Context = New-ADSIPrincipalContext @ContextSplatting
 	}
@@ -134,8 +128,9 @@ function New-ADSIComputer
 		}
 		CATCH
 		{
-			$PSCmdlet.ThrowTerminatingError($_)
+			Write-Error $Error[0]
 		}
+		
 	}
 	END
 	{

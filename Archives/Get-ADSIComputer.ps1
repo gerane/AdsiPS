@@ -74,7 +74,7 @@
 		
 		[Parameter(ValueFromPipelineByPropertyName = $true)]
 		[Alias("Domain")]
-		[System.String]$DomainDN = $(([adsisearcher]"").Searchroot.path),
+		[String]$DomainDN = $(([adsisearcher]"").Searchroot.path),
 		
 		[Alias("RunAs")]
 		[System.Management.Automation.Credential()]

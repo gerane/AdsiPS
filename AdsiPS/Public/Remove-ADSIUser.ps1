@@ -80,9 +80,9 @@
 		[System.Management.Automation.Credential()]
 		$Credential = [System.Management.Automation.PSCredential]::Empty,
 
-		[System.String]$DomainName=[System.DirectoryServices.ActiveDirectory.Domain]::Getcurrentdomain(),
+		[String]$DomainName,
 
-		[System.Management.Automation.SwitchParameter]$Recursive
+		[Switch]$Recursive
 	)
 	
 	BEGIN
@@ -120,7 +120,7 @@
 		}
 		CATCH
 		{
-			$PSCmdlet.ThrowTerminatingError($_)
+			Write-Error $Error[0]
 		}
 	}
 }

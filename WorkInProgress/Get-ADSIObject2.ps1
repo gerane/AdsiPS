@@ -18,7 +18,7 @@ PARAM(
     [System.Management.Automation.Credential()]
     $Credential = [System.Management.Automation.PSCredential]::Empty,
 
-    [System.String]$DomainName
+    [String]$DomainName
     )
 
     BEGIN
@@ -64,7 +64,7 @@ PARAM(
             }
         }
         CATCH{
-            $PSCmdlet.ThrowTerminatingError($_)
+            Write-Error $Error[0]
         }
     }
 }

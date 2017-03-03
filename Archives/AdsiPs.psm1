@@ -76,7 +76,7 @@ Function Get-ADSIComputer
 		
 		[Parameter(ValueFromPipelineByPropertyName = $true)]
 		[Alias("Domain")]
-		[System.String]$DomainDN = $(([adsisearcher]"").Searchroot.path),
+		[String]$DomainDN = $(([adsisearcher]"").Searchroot.path),
 		
 		[Alias("RunAs")]
 		[System.Management.Automation.Credential()]
@@ -269,20 +269,20 @@ function Get-ADSIContact
 	[CmdletBinding(DefaultParameterSetName = "All")]
 	PARAM (
 		[Parameter(ParameterSetName = "Name")]
-		[System.String]$Name,
+		[String]$Name,
 		
 		[Parameter(ParameterSetName = "SamAccountName")]
 		$SamAccountName,
 		
 		[Parameter(ParameterSetName = "DistinguishedName")]
-		[System.String]$DistinguishedName,
+		[String]$DistinguishedName,
 		
 		[Parameter(ParameterSetName = "All")]
-		[System.String]$All,
+		[String]$All,
 		
 		[Parameter(ValueFromPipelineByPropertyName = $true)]
 		[Alias("Domain", "DomainDN")]
-		[System.String]$DomainDistinguishedName = $(([adsisearcher]"").Searchroot.path),
+		[String]$DomainDistinguishedName = $(([adsisearcher]"").Searchroot.path),
 		
 		[Alias("RunAs")]
 		[System.Management.Automation.Credential()]
@@ -344,35 +344,35 @@ function Get-ADSIContact
 				# Define the properties
 				#  The properties need to be lowercase!!!!!!!!
 				$Properties = @{
-					"Name" = $contact.properties.name -as [System.String]
-					"DistinguishedName" = $contact.properties.distinguishedname -as [System.String]
-					"ADsPath" = $contact.properties.adspath -as [System.String]
-					"ObjectCategory" = $contact.properties.objectcategory -as [System.String]
-					"ObjectClass" = $contact.properties.objectclass -as [System.String]
+					"Name" = $contact.properties.name -as [string]
+					"DistinguishedName" = $contact.properties.distinguishedname -as [string]
+					"ADsPath" = $contact.properties.adspath -as [string]
+					"ObjectCategory" = $contact.properties.objectcategory -as [string]
+					"ObjectClass" = $contact.properties.objectclass -as [string]
 					"ObjectGuid" = $contact.properties.objectguid
-					"WhenCreated" = $contact.properties.whencreated -as [System.String] -as [datetime]
-					"WhenChanged" = $contact.properties.whenchanged -as [System.String] -as [datetime]
-					"usncreated" = $contact.properties.usncreated -as [System.String]
-					"usnchanged" = $contact.properties.usnchanged -as [System.String]
+					"WhenCreated" = $contact.properties.whencreated -as [string] -as [datetime]
+					"WhenChanged" = $contact.properties.whenchanged -as [string] -as [datetime]
+					"usncreated" = $contact.properties.usncreated -as [string]
+					"usnchanged" = $contact.properties.usnchanged -as [string]
 					"dscorepropagationdata" = $contact.properties.dscorepropagationdata
-					"instancetype" = $contact.properties.instancetype -as [System.String]
-					"CountryCode" = $contact.properties.countrycode -as [System.String]
-					"PrimaryGroupID" = $contact.properties.primarygroupid -as [System.String]
+					"instancetype" = $contact.properties.instancetype -as [string]
+					"CountryCode" = $contact.properties.countrycode -as [string]
+					"PrimaryGroupID" = $contact.properties.primarygroupid -as [string]
 					"AdminCount" = $contact.properties.admincount
-					"SamAccountName" = $contact.properties.samaccountname -as [System.String]
+					"SamAccountName" = $contact.properties.samaccountname -as [string]
 					"SamAccountType" = $contact.properties.samaccounttype
 					"ObjectSid" = $contact.properties.objectsid
-					"Displayname" = $contact.properties.displayname -as [System.String]
+					"Displayname" = $contact.properties.displayname -as [string]
 					"Accountexpires" = $contact.properties.accountexpires
-					"UserPrincipalName" = $contact.properties.userprincipalname -as [System.String]
+					"UserPrincipalName" = $contact.properties.userprincipalname -as [string]
 					"GivenName" = $contact.properties.givenname
 					"CodePage" = $contact.properties.codepage
-					"Description" = $contact.properties.description -as [System.String]
+					"Description" = $contact.properties.description -as [string]
 					"Logoncount" = $contact.properties.logoncount
 					"PwdLastSet" = $contact.properties.pwdlastset
 					"LastLogonTimeStamp" = $contact.properties.lastlogontimestamp
 					"UserAccountControl" = $contact.properties.useraccountcontrol
-					"cn" = $contact.properties.cn -as [System.String]
+					"cn" = $contact.properties.cn -as [string]
 				}
 				
 				# Output the info
@@ -810,7 +810,7 @@ function Get-ADSIDomainController
 	PARAM (
 		[Parameter()]
 		[Alias("Domain", "DomainDN")]
-		[System.String]$DomainDistinguishedName = $(([adsisearcher]"").Searchroot.path),
+		[String]$DomainDistinguishedName = $(([adsisearcher]"").Searchroot.path),
 		
 		[Alias("RunAs")]
 		[System.Management.Automation.Credential()]
@@ -1003,7 +1003,7 @@ function Move-ADSIDomainControllerRoles
 #>
 	[CmdletBinding()]
 	param ([Parameter(Mandatory = $true)]
-		[System.String]$ComputerName = $null,
+		[string]$ComputerName = $null,
 		
 		[Management.Automation.PSCredential]$Credential = $null,
 		
@@ -1011,7 +1011,7 @@ function Move-ADSIDomainControllerRoles
 		[ValidateSet("PdcRole", "SchemaRole", "NamingRole", "RidRole", "InfrastructureRole")]
 		[String[]]$Roles = $null,
 		
-		[System.Management.Automation.SwitchParameter]$Force
+		[Switch]$Force
 	)
 	
 	if ($ComputerName)
@@ -1266,7 +1266,7 @@ function Get-ADSIFsmo
 	PARAM (
 		[Parameter()]
 		[Alias("Domain", "DomainDN")]
-		[System.String]$DomainDistinguishedName = $(([adsisearcher]"").Searchroot.path),
+		[String]$DomainDistinguishedName = $(([adsisearcher]"").Searchroot.path),
 		
 		[Alias("RunAs")]
 		[System.Management.Automation.Credential()]
@@ -1420,19 +1420,19 @@ function Get-ADSISchema
 		[Parameter(ParameterSetName = 'Default',
 				   Mandatory = $true)]
 		[ValidateSet("mandatory", "optional")]
-		[System.String]$PropertyType,
+		[String]$PropertyType,
 		
 		[Parameter(ParameterSetName = 'Default',
 				   Mandatory = $true)]
-		[System.String]$ClassName,
+		[String]$ClassName,
 		
 		[Parameter(ParameterSetName = 'AllClasses',
 				   Mandatory = $true)]
-		[System.Management.Automation.SwitchParameter]$AllClasses,
+		[Switch]$AllClasses,
 		
 		[Parameter(ParameterSetName = 'FindClasses',
 				   Mandatory = $true)]
-		[System.String]$FindClassName
+		[String]$FindClassName
 	)
 	
 	BEGIN
@@ -1540,26 +1540,26 @@ function Get-ADSIGroup
 	[CmdletBinding(DefaultParameterSetName = "Name")]
 	PARAM (
 		[Parameter(Mandatory = $true, ParameterSetName = "Name")]
-		[System.String]$Name,
+		[String]$Name,
 		
 		[Parameter(Mandatory = $true, ParameterSetName = "SamAccountName")]
-		[System.String]$SamAccountName,
+		[String]$SamAccountName,
 		
 		[Parameter(Mandatory = $true, ParameterSetName = "DistinguishedName")]
-		[System.String]$DistinguishedName,
+		[String]$DistinguishedName,
 		
 		[Parameter(Mandatory = $true, ParameterSetName = "Empty")]
-		[System.Management.Automation.SwitchParameter]$Empty,
+		[Switch]$Empty,
 		
 		[Parameter(Mandatory = $true, ParameterSetName = "SystemGroups")]
-		[System.Management.Automation.SwitchParameter]$SystemGroups,
+		[Switch]$SystemGroups,
 		
 		[ValidateSet("One", "OneLevel", "Subtree")]
 		$SearchScope = "SubTree",
 		
 		[Parameter(ValueFromPipelineByPropertyName = $true)]
 		[Alias("Domain", "DomainDN")]
-		[System.String]$DomainDistinguishedName = $(([adsisearcher]"").Searchroot.path),
+		[String]$DomainDistinguishedName = $(([adsisearcher]"").Searchroot.path),
 		
 		[Alias("RunAs")]
 		[System.Management.Automation.Credential()]
@@ -1622,13 +1622,13 @@ function Get-ADSIGroup
 				# Define the properties
 				#  The properties need to be lowercase!!!!!!!!
 				$Properties = @{
-					"Name" = $group.properties.name -as [System.String]
-					"SamAccountName" = $group.properties.samaccountname -as [System.String]
-					"Description" = $group.properties.description -as [System.String]
-					"DistinguishedName" = $group.properties.distinguishedname -as [System.String]
-					"ADsPath" = $group.properties.adspath -as [System.String]
-					"ManagedBy" = $group.properties.managedby -as [System.String]
-					"GroupType" = $group.properties.grouptype -as [System.String]
+					"Name" = $group.properties.name -as [string]
+					"SamAccountName" = $group.properties.samaccountname -as [string]
+					"Description" = $group.properties.description -as [string]
+					"DistinguishedName" = $group.properties.distinguishedname -as [string]
+					"ADsPath" = $group.properties.adspath -as [string]
+					"ManagedBy" = $group.properties.managedby -as [string]
+					"GroupType" = $group.properties.grouptype -as [string]
 					"Member" = $group.properties.member
 					"ObjectCategory" = $group.properties.objectcategory
 					"ObjectClass" = $group.properties.objectclass
@@ -1715,20 +1715,20 @@ function Get-ADSIGroupManagedBy
 	PARAM (
 		[Parameter(ParameterSetName = "One")]
 		[Alias("ManagerSamAccountName")]
-		[System.String]$SamAccountName = $env:USERNAME,
+		[String]$SamAccountName = $env:USERNAME,
 		
 		[Parameter(ParameterSetName = "All")]
-		[System.Management.Automation.SwitchParameter]$AllManagedGroups,
+		[Switch]$AllManagedGroups,
 		
 		[Parameter(ParameterSetName = "No")]
-		[System.Management.Automation.SwitchParameter]$NoManager,
+		[Switch]$NoManager,
 		
 		[Alias("RunAs")]
 		[System.Management.Automation.Credential()]
 		$Credential = [System.Management.Automation.PSCredential]::Empty,
 		
 		[Alias("DomainDN", "Domain", "SearchBase", "SearchRoot")]
-		[System.String]$DomainDistinguishedName = $(([adsisearcher]"").Searchroot.path),
+		[String]$DomainDistinguishedName = $(([adsisearcher]"").Searchroot.path),
 		
 		[Alias("ResultLimit", "Limit")]
 		[int]$SizeLimit = '100'
@@ -1766,7 +1766,7 @@ function Get-ADSIGroupManagedBy
 				#Look for User DN
 				$UserSearch = $search
 				$UserSearch.Filter = "(&(SamAccountName=$SamAccountName))"
-				$UserDN = $UserSearch.FindOne().Properties.distinguishedname -as [System.String]
+				$UserDN = $UserSearch.FindOne().Properties.distinguishedname -as [string]
 				
 				# Define the query to find the Groups managed by this user
 				$Search.Filter = "(&(objectCategory=group)(ManagedBy=$UserDN))"
@@ -1790,7 +1790,7 @@ function Get-ADSIGroupManagedBy
 				#Look for User DN
 				$UserSearch = $search
 				$UserSearch.Filter = "(&(SamAccountName=$SamAccountName))"
-				$UserDN = $UserSearch.FindOne().Properties.distinguishedname -as [System.String]
+				$UserDN = $UserSearch.FindOne().Properties.distinguishedname -as [string]
 				
 				# Define the query to find the Groups managed by this user
 				$Search.Filter = "(&(objectCategory=group)(ManagedBy=$UserDN))"
@@ -1799,10 +1799,10 @@ function Get-ADSIGroupManagedBy
 			Foreach ($group in $Search.FindAll())
 			{
 				$Properties = @{
-					"SamAccountName" = $group.properties.samaccountname -as [System.String]
-					"DistinguishedName" = $group.properties.distinguishedname -as [System.String]
-					"GroupType" = $group.properties.grouptype -as [System.String]
-					"Mail" = $group.properties.mail -as [System.String]
+					"SamAccountName" = $group.properties.samaccountname -as [string]
+					"DistinguishedName" = $group.properties.distinguishedname -as [string]
+					"GroupType" = $group.properties.grouptype -as [string]
+					"Mail" = $group.properties.mail -as [string]
 				}
 				New-Object -TypeName psobject -Property $Properties
 			}
@@ -1854,19 +1854,19 @@ function Add-ADSIGroupMember
 	[CmdletBinding(DefaultParameterSetName = "GroupSamAccountName")]
 	PARAM (
 		[Parameter(Mandatory = $true, ParameterSetName = "Name")]
-		[System.String]$GroupName,
+		[String]$GroupName,
 		
 		[Parameter(Mandatory = $true, ParameterSetName = "GroupSamAccountName")]
-		[System.String]$GroupSamAccountName,
+		[String]$GroupSamAccountName,
 		
 		[Parameter(Mandatory = $true, ParameterSetName = "DistinguishedName")]
-		[System.String]$GroupDistinguishedName,
+		[String]$GroupDistinguishedName,
 		
 		[Parameter(Mandatory = $true)]
-		[System.String]$MemberSamAccountName,
+		[string]$MemberSamAccountName,
 		
 		[Alias("Domain")]
-		[System.String]$DomainDN = $(([adsisearcher]"").Searchroot.path),
+		[String]$DomainDN = $(([adsisearcher]"").Searchroot.path),
 		
 		[Alias("RunAs")]
 		[System.Management.Automation.Credential()]
@@ -1902,7 +1902,7 @@ function Add-ADSIGroupMember
 			Write-Verbose -Message "[PROCESS] Looking for Object: $MemberSamAccountName"
 			$ObjectSearch = $Search
 			$ObjectSearch.filter = "(samaccountname=$MemberSamAccountName)"
-			$ObjectSearchADSPath = $ObjectSearch.FindOne().Properties.adspath -as [System.String]
+			$ObjectSearchADSPath = $ObjectSearch.FindOne().Properties.adspath -as [string]
 			$ObjectSearchADSPathADSI = $ObjectSearchADSPath -as [ADSI]
 			$objectResult = $ObjectSearch.FindOne()
 			
@@ -1930,8 +1930,8 @@ function Add-ADSIGroupMember
 			{
 				
 				# Get the SamAccountName and ADSPATH of the Group
-				$GroupAccount = $Group.Properties.samaccountname -as [System.String]
-				$GroupAdspath = $($Group.Properties.adspath -as [System.String]) -as [ADSI]
+				$GroupAccount = $Group.Properties.samaccountname -as [string]
+				$GroupAdspath = $($Group.Properties.adspath -as [string]) -as [ADSI]
 				
 				# Member
 				$MemberAdsPath = [ADSI]"$($member.Properties.adspath)"
@@ -1940,10 +1940,10 @@ function Add-ADSIGroupMember
 				$IsMember = $GroupAdspath.IsMember($MemberAdsPath.AdsPath)
 				IF (-not ($IsMember))
 				{
-					Write-Verbose -Message "[PROCESS] Group: $($Group.properties.name -as [System.String])"
-					Write-Verbose -Message "[PROCESS] Adding: $($Member.properties.name -as [System.String])"
+					Write-Verbose -Message "[PROCESS] Group: $($Group.properties.name -as [string])"
+					Write-Verbose -Message "[PROCESS] Adding: $($Member.properties.name -as [string])"
 					# Add the user to the group
-					([ADSI]"$($Group.properties.adspath)").add($($Member.Properties.adspath -as [System.String]))
+					([ADSI]"$($Group.properties.adspath)").add($($Member.Properties.adspath -as [string]))
 				}
 				ELSE
 				{
@@ -2016,9 +2016,9 @@ function Get-ADSIGroupMembership
 	PARAM (
 		[Parameter(Mandatory)]
 		[Alias("SamAccountName", "DN", "DistinguishedName")]
-		[System.String]$Identity,
+		[String]$Identity,
 		
-		[System.Management.Automation.SwitchParameter]$Recurse,
+		[Switch]$Recurse,
 		
 		$ContextObject,
 		
@@ -2148,7 +2148,7 @@ function Get-ADSIGroupPolicyObject
 	PARAM (
 		[Parameter()]
 		[Alias("Domain", "DomainDN")]
-		[System.String]$DomainDistinguishedName = $(([adsisearcher]"").Searchroot.path),
+		[String]$DomainDistinguishedName = $(([adsisearcher]"").Searchroot.path),
 		
 		[Alias("RunAs")]
 		[System.Management.Automation.Credential()]
@@ -2246,14 +2246,14 @@ function Get-ADSITokenGroup
 	(
 		[Parameter(ValueFromPipeline = $true)]
 		[Alias('UserName', 'Identity')]
-		[System.String]$SamAccountName,
+		[String]$SamAccountName,
 		
 		[Alias('RunAs')]
 		[System.Management.Automation.Credential()]
 		$Credential = [System.Management.Automation.PSCredential]::Empty,
 		
 		[Alias('DomainDN', 'Domain')]
-		[System.String]$DomainDistinguishedName = $(([adsisearcher]"").Searchroot.path),
+		[String]$DomainDistinguishedName = $(([adsisearcher]"").Searchroot.path),
 		
 		[Alias('ResultLimit', 'Limit')]
 		[int]$SizeLimit = '100'
@@ -2301,7 +2301,7 @@ function Get-ADSITokenGroup
 					
 					# Prepare Output
 					$Properties = @{
-						SamAccountName = $Account.properties.samaccountname -as [System.String]
+						SamAccountName = $Account.properties.samaccountname -as [string]
 						GroupName = $principal.Translate([System.Security.Principal.NTAccount])
 					}
 					
@@ -2353,10 +2353,10 @@ function Test-ADSICredential
 	(
 		[Parameter(Mandatory)]
 		[Alias("UserName")]
-		[System.String]$AccountName,
+		[string]$AccountName,
 		
 		[Parameter(Mandatory)]
-		[System.String]$Password
+		[string]$Password
 	)
 	BEGIN
 	{
@@ -2424,14 +2424,14 @@ function Get-ADSIObject
 	PARAM (
 		[Parameter(ParameterSetName = "SamAccountName")]
 		[Alias("Name", "DisplayName")]
-		[System.String]$SamAccountName,
+		[String]$SamAccountName,
 		
 		[Parameter(ParameterSetName = "DistinguishedName")]
-		[System.String]$DistinguishedName,
+		[String]$DistinguishedName,
 		
 		[Parameter(ValueFromPipelineByPropertyName = $true)]
 		[Alias("Domain", "DomainDN", "SearchRoot", "SearchBase")]
-		[System.String]$DomainDistinguishedName = $(([adsisearcher]"").Searchroot.path),
+		[String]$DomainDistinguishedName = $(([adsisearcher]"").Searchroot.path),
 		
 		[Alias("RunAs")]
 		[System.Management.Automation.Credential()]
@@ -2475,17 +2475,17 @@ function Get-ADSIObject
 				# Define the properties
 				#  The properties need to be lowercase!!!!!!!!
 				$Properties = @{
-					"DisplayName" = $Object.properties.displayname -as [System.String]
-					"Name" = $Object.properties.name -as [System.String]
-					"ObjectCategory" = $Object.properties.objectcategory -as [System.String]
-					"ObjectClass" = $Object.properties.objectclass -as [System.String]
-					"SamAccountName" = $Object.properties.samaccountname -as [System.String]
-					"Description" = $Object.properties.description -as [System.String]
-					"DistinguishedName" = $Object.properties.distinguishedname -as [System.String]
-					"ADsPath" = $Object.properties.adspath -as [System.String]
-					"LastLogon" = $Object.properties.lastlogon -as [System.String]
-					"WhenCreated" = $Object.properties.whencreated -as [System.String]
-					"WhenChanged" = $Object.properties.whenchanged -as [System.String]
+					"DisplayName" = $Object.properties.displayname -as [string]
+					"Name" = $Object.properties.name -as [string]
+					"ObjectCategory" = $Object.properties.objectcategory -as [string]
+					"ObjectClass" = $Object.properties.objectclass -as [string]
+					"SamAccountName" = $Object.properties.samaccountname -as [string]
+					"Description" = $Object.properties.description -as [string]
+					"DistinguishedName" = $Object.properties.distinguishedname -as [string]
+					"ADsPath" = $Object.properties.adspath -as [string]
+					"LastLogon" = $Object.properties.lastlogon -as [string]
+					"WhenCreated" = $Object.properties.whencreated -as [string]
+					"WhenChanged" = $Object.properties.whenchanged -as [string]
 				}
 				
 				# Output the info
@@ -2559,19 +2559,19 @@ function Get-ADSIOrganizationalUnit
 	[CmdletBinding(DefaultParameterSetName = "All")]
 	PARAM (
 		[Parameter(ParameterSetName = "Name")]
-		[System.String]$Name,
+		[String]$Name,
 		
 		[Parameter(ParameterSetName = "DistinguishedName")]
-		[System.String]$DistinguishedName,
+		[String]$DistinguishedName,
 		
 		[Parameter(ParameterSetName = "All")]
-		[System.String]$All,
+		[String]$All,
 		
-		[System.Management.Automation.SwitchParameter]$GroupPolicyInheritanceBlocked,
+		[Switch]$GroupPolicyInheritanceBlocked,
 		
 		[Parameter(ValueFromPipelineByPropertyName = $true)]
 		[Alias("Domain", "DomainDN")]
-		[System.String]$DomainDistinguishedName = $(([adsisearcher]"").Searchroot.path),
+		[String]$DomainDistinguishedName = $(([adsisearcher]"").Searchroot.path),
 		
 		[Alias("RunAs")]
 		[System.Management.Automation.Credential()]
@@ -2636,18 +2636,18 @@ function Get-ADSIOrganizationalUnit
 				# Define the properties
 				#  The properties need to be lowercase!!!!!!!!
 				$Properties = @{
-					"Name" = $ou.properties.name -as [System.String]
-					"DistinguishedName" = $ou.properties.distinguishedname -as [System.String]
-					"ADsPath" = $ou.properties.adspath -as [System.String]
-					"ObjectCategory" = $ou.properties.objectcategory -as [System.String]
-					"ObjectClass" = $ou.properties.objectclass -as [System.String]
+					"Name" = $ou.properties.name -as [string]
+					"DistinguishedName" = $ou.properties.distinguishedname -as [string]
+					"ADsPath" = $ou.properties.adspath -as [string]
+					"ObjectCategory" = $ou.properties.objectcategory -as [string]
+					"ObjectClass" = $ou.properties.objectclass -as [string]
 					"ObjectGuid" = $ou.properties.objectguid
-					"WhenCreated" = $ou.properties.whencreated -as [System.String] -as [datetime]
-					"WhenChanged" = $ou.properties.whenchanged -as [System.String] -as [datetime]
-					"usncreated" = $ou.properties.usncreated -as [System.String]
-					"usnchanged" = $ou.properties.usnchanged -as [System.String]
+					"WhenCreated" = $ou.properties.whencreated -as [string] -as [datetime]
+					"WhenChanged" = $ou.properties.whenchanged -as [string] -as [datetime]
+					"usncreated" = $ou.properties.usncreated -as [string]
+					"usnchanged" = $ou.properties.usnchanged -as [string]
 					"dscorepropagationdata" = $ou.properties.dscorepropagationdata
-					"instancetype" = $ou.properties.instancetype -as [System.String]
+					"instancetype" = $ou.properties.instancetype -as [string]
 				}
 				
 				# Output the info
@@ -2705,7 +2705,7 @@ function Enable-ADSIReplicaGC
 #>	
 	[CmdletBinding()]
 	param ([Parameter(Mandatory = $true)]
-		[System.String]$ComputerName = $null,
+		[string]$ComputerName = $null,
 		
 		[Management.Automation.PSCredential]$Credential = $null
 	)
@@ -2793,11 +2793,11 @@ function Get-ADSIReplicaDomainInfo
 #>	
 	[CmdletBinding()]
 	param ([Parameter(Mandatory = $true)]
-		[System.String]$ComputerName = $null,
+		[string]$ComputerName = $null,
 		
 		[Management.Automation.PSCredential]$Credential = $null,
 		
-		[System.Management.Automation.SwitchParameter]$Recurse
+		[Switch]$Recurse
 	)
 	
 	if ($ComputerName)
@@ -2878,7 +2878,7 @@ function Get-ADSIReplicaForestInfo
 #>	
 	[CmdletBinding()]
 	param ([Parameter(Mandatory = $true)]
-		[System.String]$ComputerName = $null,
+		[string]$ComputerName = $null,
 		
 		[Management.Automation.PSCredential]$Credential = $null
 	)
@@ -2944,7 +2944,7 @@ function Get-ADSIReplicaCurrentTime
 #>	
 	[CmdletBinding()]
 	param ([Parameter(Mandatory = $true)]
-		[System.String]$ComputerName = $null,
+		[string]$ComputerName = $null,
 		
 		[Management.Automation.PSCredential]$Credential = $null
 	)
@@ -3011,7 +3011,7 @@ function Get-ADSIReplicaGCInfo
 #>
 	[CmdletBinding()]
 	param ([Parameter(Mandatory = $true)]
-		[System.String]$ComputerName = $null,
+		[string]$ComputerName = $null,
 		
 		[Management.Automation.PSCredential]$Credential = $null
 	)
@@ -3126,26 +3126,26 @@ function Get-ADSIReplicaInfo
     https://balladelli.com
 #>
 	[CmdletBinding()]
-	param ([System.String]$ComputerName = $null,
+	param ([string]$ComputerName = $null,
 		
-		[System.String]$Domain = $null,
+		[string]$Domain = $null,
 		
 		[Management.Automation.PSCredential]$Credential = $null,
 		
 		[ValidateSet("Schema", "Configuration", "Domain", "All")]
-		[System.String]$NamingContext = "Domain",
+		[String]$NamingContext = "Domain",
 		
-		[System.Management.Automation.SwitchParameter]$Neighbors,
+		[Switch]$Neighbors,
 		
-		[System.Management.Automation.SwitchParameter]$Latency,
+		[Switch]$Latency,
 		
-		[System.Management.Automation.SwitchParameter]$Cursors,
+		[Switch]$Cursors,
 		
-		[System.Management.Automation.SwitchParameter]$Errors,
+		[Switch]$Errors,
 		
-		[System.Management.Automation.SwitchParameter]$DisplayDC,
+		[Switch]$DisplayDC,
 		
-		[System.Management.Automation.SwitchParameter]$FormatTable
+		[Switch]$FormatTable
 	)
 	
 	
@@ -3209,7 +3209,7 @@ function Get-ADSIReplicaInfo
 	# If none of switches are present, default to at least one, so we have something to show
 	if (!$Latency.IsPresent -and !$Neighbors.IsPresent -and !$Errors.IsPresent -and !$Cursors.IsPresent)
 	{
-		[System.Management.Automation.SwitchParameter]$Latency = $true
+		[switch]$Latency = $true
 	}
 	
 	# Determine which DC to use depending on the context type. 
@@ -3399,12 +3399,12 @@ function Move-ADSIReplicaToSite
 #>
 	[CmdletBinding()]
 	param ([Parameter(Mandatory = $true)]
-		[System.String]$ComputerName = $null,
+		[string]$ComputerName = $null,
 		
 		[Management.Automation.PSCredential]$Credential = $null,
 		
 		[Parameter(Mandatory = $true)]
-		[System.String]$Site = $null
+		[string]$Site = $null
 	)
 	
 	if ($ComputerName)
@@ -3468,7 +3468,7 @@ function Start-ADSIReplicationConsistencyCheck
 #>	
 	[CmdletBinding()]
 	param ([Parameter(Mandatory = $true)]
-		[System.String]$ComputerName = $null,
+		[string]$ComputerName = $null,
 		
 		[Management.Automation.PSCredential]$Credential = $null
 	)
@@ -3526,7 +3526,7 @@ function Get-ADSISite
 	PARAM (
 		[Parameter()]
 		[Alias("Domain", "DomainDN")]
-		[System.String]$DomainDistinguishedName = $(([adsisearcher]"").Searchroot.path),
+		[String]$DomainDistinguishedName = $(([adsisearcher]"").Searchroot.path),
 		
 		[Alias("RunAs")]
 		[System.Management.Automation.Credential()]
@@ -3658,7 +3658,7 @@ function Get-ADSISitesInfo
 #>	
 	[CmdletBinding()]
 	param ([Parameter(Mandatory = $true)]
-		[System.String]$ComputerName = $null,
+		[string]$ComputerName = $null,
 		
 		[Management.Automation.PSCredential]$Credential = $null
 	)
@@ -3713,7 +3713,7 @@ function Get-ADSISiteLink
 	PARAM (
 		[Parameter()]
 		[Alias("Domain", "DomainDN")]
-		[System.String]$DomainDistinguishedName = $(([adsisearcher]"").Searchroot.path),
+		[String]$DomainDistinguishedName = $(([adsisearcher]"").Searchroot.path),
 		
 		[Alias("RunAs")]
 		[System.Management.Automation.Credential()]
@@ -3810,7 +3810,7 @@ function Get-ADSISiteServer
 		
 		[Parameter()]
 		[Alias("Domain", "DomainDN")]
-		[System.String]$DomainDistinguishedName = $(([adsisearcher]"").Searchroot.path),
+		[String]$DomainDistinguishedName = $(([adsisearcher]"").Searchroot.path),
 		
 		[Alias("RunAs")]
 		[System.Management.Automation.Credential()]
@@ -3982,22 +3982,22 @@ function Get-ADSIUser
 	[CmdletBinding(DefaultParameterSetName = "SamAccountName")]
 	PARAM (
 		[Parameter(ParameterSetName = "DisplayName", Mandatory = $true)]
-		[System.String]$DisplayName,
+		[String]$DisplayName,
 		
 		[Parameter(ParameterSetName = "SamAccountName", Mandatory = $true)]
-		[System.String]$SamAccountName,
+		[String]$SamAccountName,
 		
 		[Parameter(ParameterSetName = "DistinguishedName", Mandatory = $true)]
-		[System.String]$DistinguishedName,
+		[String]$DistinguishedName,
 		
 		[Parameter(ParameterSetName = "MustChangePasswordAtNextLogon", Mandatory = $true)]
-		[System.Management.Automation.SwitchParameter]$MustChangePasswordAtNextLogon,
+		[Switch]$MustChangePasswordAtNextLogon,
 		
 		[Parameter(ParameterSetName = "PasswordNeverExpires", Mandatory = $true)]
-		[System.Management.Automation.SwitchParameter]$PasswordNeverExpires,
+		[Switch]$PasswordNeverExpires,
 		
 		[Parameter(ParameterSetName = "NeverLoggedOn", Mandatory = $true)]
-		[System.Management.Automation.SwitchParameter]$NeverLoggedOn,
+		[Switch]$NeverLoggedOn,
 		
 		[Parameter(ParameterSetName = "DialIn", Mandatory = $true)]
 		[boolean]$DialIn,
@@ -4008,7 +4008,7 @@ function Get-ADSIUser
 		
 		[Parameter()]
 		[Alias("DomainDN", "Domain")]
-		[System.String]$DomainDistinguishedName = $(([adsisearcher]"").Searchroot.path),
+		[String]$DomainDistinguishedName = $(([adsisearcher]"").Searchroot.path),
 		
 		[Alias("ResultLimit", "Limit")]
 		[int]$SizeLimit = '100'
@@ -4075,24 +4075,24 @@ function Get-ADSIUser
 				# Define the properties
 				#  The properties need to be lowercase!!!!!!!!
 				$Properties = @{
-					"DisplayName" = $user.properties.displayname -as [System.String]
-					"SamAccountName" = $user.properties.samaccountname -as [System.String]
-					"Description" = $user.properties.description -as [System.String]
-					"DistinguishedName" = $user.properties.distinguishedname -as [System.String]
-					"ADsPath" = $user.properties.adspath -as [System.String]
+					"DisplayName" = $user.properties.displayname -as [string]
+					"SamAccountName" = $user.properties.samaccountname -as [string]
+					"Description" = $user.properties.description -as [string]
+					"DistinguishedName" = $user.properties.distinguishedname -as [string]
+					"ADsPath" = $user.properties.adspath -as [string]
 					"MemberOf" = $user.properties.memberof
-					"Location" = $user.properties.l -as [System.String]
-					"Country" = $user.properties.co -as [System.String]
-					"PostalCode" = $user.Properties.postalcode -as [System.String]
-					"Mail" = $user.properties.mail -as [System.String]
-					"TelephoneNumber" = $user.properties.telephonenumber -as [System.String]
-					"LastLogonTimeStamp" = $user.properties.lastlogontimestamp -as [System.String]
-					"ObjectCategory" = $user.properties.objectcategory -as [System.String]
-					"Manager" = $user.properties.manager -as [System.String]
-					"HomeDrive" = $user.properties.homedrive -as [System.String]
-					"LogonCount" = $user.properties.logoncount -as [System.String]
-					"DirectReport" = $user.properties.l -as [System.String]
-					"useraccountcontrol" = $user.properties.useraccountcontrol -as [System.String]
+					"Location" = $user.properties.l -as [string]
+					"Country" = $user.properties.co -as [string]
+					"PostalCode" = $user.Properties.postalcode -as [string]
+					"Mail" = $user.properties.mail -as [string]
+					"TelephoneNumber" = $user.properties.telephonenumber -as [string]
+					"LastLogonTimeStamp" = $user.properties.lastlogontimestamp -as [string]
+					"ObjectCategory" = $user.properties.objectcategory -as [string]
+					"Manager" = $user.properties.manager -as [string]
+					"HomeDrive" = $user.properties.homedrive -as [string]
+					"LogonCount" = $user.properties.logoncount -as [string]
+					"DirectReport" = $user.properties.l -as [string]
+					"useraccountcontrol" = $user.properties.useraccountcontrol -as [string]
 					
 					<#
 					lastlogoff

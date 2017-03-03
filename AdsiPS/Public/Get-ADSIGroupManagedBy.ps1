@@ -58,13 +58,13 @@
 	PARAM (
 		[Parameter(ParameterSetName = "One")]
 		[Alias("ManagerSamAccountName")]
-		[System.String]$SamAccountName = $env:USERNAME,
+		[String]$SamAccountName = $env:USERNAME,
 		
 		[Parameter(ParameterSetName = "All")]
-		[System.Management.Automation.SwitchParameter]$AllManagedGroups,
+		[Switch]$AllManagedGroups,
 		
 		[Parameter(ParameterSetName = "No")]
-		[System.Management.Automation.SwitchParameter]$NoManager,
+		[Switch]$NoManager,
 		
 		[Alias("RunAs")]
 		[System.Management.Automation.PSCredential]
@@ -72,7 +72,7 @@
 		$Credential = [System.Management.Automation.PSCredential]::Empty,
 		
 		[Alias("DomainDN", "Domain", "SearchBase", "SearchRoot")]
-		[System.String]$DomainDistinguishedName = $(([adsisearcher]"").Searchroot.path),
+		[String]$DomainDistinguishedName = $(([adsisearcher]"").Searchroot.path),
 		
 		[Alias("ResultLimit", "Limit")]
 		[int]$SizeLimit = '100'
@@ -110,7 +110,7 @@
 				#Look for User DN
 				$UserSearch = $search
 				$UserSearch.Filter = "(&(SamAccountName=$SamAccountName))"
-				$UserDN = $UserSearch.FindOne().Properties.distinguishedname -as [System.String]
+				$UserDN = $UserSearch.FindOne().Properties.distinguishedname -as [string]
 				
 				# Define the query to find the Groups managed by this user
 				$Search.Filter = "(&(objectCategory=group)(ManagedBy=$UserDN))"
@@ -134,7 +134,7 @@
 				#Look for User DN
 				$UserSearch = $search
 				$UserSearch.Filter = "(&(SamAccountName=$SamAccountName))"
-				$UserDN = $UserSearch.FindOne().Properties.distinguishedname -as [System.String]
+				$UserDN = $UserSearch.FindOne().Properties.distinguishedname -as [string]
 				
 				# Define the query to find the Groups managed by this user
 				$Search.Filter = "(&(objectCategory=group)(ManagedBy=$UserDN))"
@@ -143,17 +143,18 @@
 			Foreach ($group in $Search.FindAll())
 			{
 				$Properties = @{
-					"SamAccountName" = $group.properties.samaccountname -as [System.String]
-					"DistinguishedName" = $group.properties.distinguishedname -as [System.String]
-					"GroupType" = $group.properties.grouptype -as [System.String]
-					"Mail" = $group.properties.mail -as [System.String]
+					"SamAccountName" = $group.properties.samaccountname -as [string]
+					"DistinguishedName" = $group.properties.distinguishedname -as [string]
+					"GroupType" = $group.properties.grouptype -as [string]
+					"Mail" = $group.properties.mail -as [string]
 				}
 				New-Object -TypeName psobject -Property $Properties
 			}
 		}#try
 		CATCH
 		{
-			$PSCmdlet.ThrowTerminatingError($_)
+			Write-Warning -Message "[PROCESS] Something wrong happened!"
+			Write-Warning -Message $error[0].Exception.Message
 		}
 	}#Process
 	END { Write-Verbose -Message "[END] Function Get-ADSIGroupManagedBy End." }

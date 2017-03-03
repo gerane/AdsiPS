@@ -27,7 +27,7 @@ function Unlock-ADSIUser
 #>
 	[CmdletBinding()]
 	param ([Parameter(Mandatory)]
-		[System.String]$Identity,
+		[string]$Identity,
 		
 		[Alias("RunAs")]
 		[System.Management.Automation.PSCredential]

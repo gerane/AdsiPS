@@ -39,19 +39,19 @@
 	[CmdletBinding(DefaultParameterSetName = "GroupSamAccountName")]
 	PARAM (
 		[Parameter(Mandatory = $true, ParameterSetName = "Name")]
-		[System.String]$GroupName,
+		[String]$GroupName,
 		
 		[Parameter(Mandatory = $true, ParameterSetName = "GroupSamAccountName")]
-		[System.String]$GroupSamAccountName,
+		[String]$GroupSamAccountName,
 		
 		[Parameter(Mandatory = $true, ParameterSetName = "DistinguishedName")]
-		[System.String]$GroupDistinguishedName,
+		[String]$GroupDistinguishedName,
 		
 		[Parameter(Mandatory = $true)]
-		[System.String]$MemberSamAccountName,
+		[string]$MemberSamAccountName,
 		
 		[Alias("Domain")]
-		[System.String]$DomainDN = $(([adsisearcher]"").Searchroot.path),
+		[String]$DomainDN = $(([adsisearcher]"").Searchroot.path),
 		
 		[Alias("RunAs")]
 		[System.Management.Automation.Credential()]
@@ -87,7 +87,7 @@
 			Write-Verbose -Message "[PROCESS] Looking for Object: $MemberSamAccountName"
 			$ObjectSearch = $Search
 			$ObjectSearch.filter = "(samaccountname=$MemberSamAccountName)"
-			$ObjectSearchADSPath = $ObjectSearch.FindOne().Properties.adspath -as [System.String]
+			$ObjectSearchADSPath = $ObjectSearch.FindOne().Properties.adspath -as [string]
 			$ObjectSearchADSPathADSI = $ObjectSearchADSPath -as [ADSI]
 			$objectResult = $ObjectSearch.FindOne()
 			
@@ -115,8 +115,8 @@
 			{
 				
 				# Get the SamAccountName and ADSPATH of the Group
-				$GroupAccount = $Group.Properties.samaccountname -as [System.String]
-				$GroupAdspath = $($Group.Properties.adspath -as [System.String]) -as [ADSI]
+				$GroupAccount = $Group.Properties.samaccountname -as [string]
+				$GroupAdspath = $($Group.Properties.adspath -as [string]) -as [ADSI]
 				
 				# Member
 				$MemberAdsPath = [ADSI]"$($member.Properties.adspath)"
@@ -125,10 +125,10 @@
 				$IsMember = $GroupAdspath.IsMember($MemberAdsPath.AdsPath)
 				IF (-not ($IsMember))
 				{
-					Write-Verbose -Message "[PROCESS] Group: $($Group.properties.name -as [System.String])"
-					Write-Verbose -Message "[PROCESS] Adding: $($Member.properties.name -as [System.String])"
+					Write-Verbose -Message "[PROCESS] Group: $($Group.properties.name -as [string])"
+					Write-Verbose -Message "[PROCESS] Adding: $($Member.properties.name -as [string])"
 					# Add the user to the group
-					([ADSI]"$($Group.properties.adspath)").add($($Member.Properties.adspath -as [System.String]))
+					([ADSI]"$($Group.properties.adspath)").add($($Member.Properties.adspath -as [string]))
 				}
 				ELSE
 				{
@@ -143,7 +143,9 @@
 		}#TRY
 		CATCH
 		{
-			$PSCmdlet.ThrowTerminatingError($_)
+			Write-Warning -Message "[PROCESS] Something wrong happened!"
+			#if ($ProcessErrorGetADSIUser) { Write-Warning -Message "[PROCESS] Issue while getting information on the user using Get-ADSIUser" }
+			Write-Warning -Message $error[0].Exception.Message
 		}
 	}#PROCESS
 	END

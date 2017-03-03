@@ -32,14 +32,14 @@
 	param
 	(
 		[Parameter(Mandatory = $true)]
-		[System.String]$SubnetName,
+		[String]$SubnetName,
 
 		[Alias("RunAs")]
 		[System.Management.Automation.PSCredential]
 		[System.Management.Automation.Credential()]
 		$Credential = [System.Management.Automation.PSCredential]::Empty,
 
-		[System.String]$ForestName
+		[String]$ForestName
 	)
 	
 	BEGIN
@@ -63,7 +63,8 @@
 		}
 		CATCH
 		{
-			$PSCmdlet.ThrowTerminatingError($_)
+			Write-Error $Error[0]
+			break
 		}
 	}
 	END

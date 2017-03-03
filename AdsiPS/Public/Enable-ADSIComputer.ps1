@@ -64,9 +64,7 @@ function Enable-ADSIComputer
 		[System.Management.Automation.Credential()]
 		$Credential = [System.Management.Automation.PSCredential]::Empty,
 		
-		[System.String]$DomainName=[System.DirectoryServices.ActiveDirectory.Domain]::Getcurrentdomain()
-		
-	)
+		[String]$DomainName)
 	
 	BEGIN
 	{
@@ -92,7 +90,7 @@ function Enable-ADSIComputer
 		}
 		CATCH
 		{
-			$PSCmdlet.ThrowTerminatingError($_)
+			Write-Error $Error[0]
 		}
 	}
 }

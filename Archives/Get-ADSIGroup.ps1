@@ -59,26 +59,26 @@
 	[CmdletBinding(DefaultParameterSetName = "Name")]
 	PARAM (
 		[Parameter(Mandatory = $true, ParameterSetName = "Name")]
-		[System.String]$Name,
+		[String]$Name,
 		
 		[Parameter(Mandatory = $true, ParameterSetName = "SamAccountName")]
-		[System.String]$SamAccountName,
+		[String]$SamAccountName,
 		
 		[Parameter(Mandatory = $true, ParameterSetName = "DistinguishedName")]
-		[System.String]$DistinguishedName,
+		[String]$DistinguishedName,
 		
 		[Parameter(Mandatory = $true, ParameterSetName = "Empty")]
-		[System.Management.Automation.SwitchParameter]$Empty,
+		[Switch]$Empty,
 		
 		[Parameter(Mandatory = $true, ParameterSetName = "SystemGroups")]
-		[System.Management.Automation.SwitchParameter]$SystemGroups,
+		[Switch]$SystemGroups,
 		
 		[ValidateSet("One", "OneLevel", "Subtree")]
 		$SearchScope = "SubTree",
 		
 		[Parameter(ValueFromPipelineByPropertyName = $true)]
 		[Alias("Domain", "DomainDN")]
-		[System.String]$DomainDistinguishedName = $(([adsisearcher]"").Searchroot.path),
+		[String]$DomainDistinguishedName = $(([adsisearcher]"").Searchroot.path),
 		
 		[Alias("RunAs")]
 		[System.Management.Automation.Credential()]
@@ -141,13 +141,13 @@
 				# Define the properties
 				#  The properties need to be lowercase!!!!!!!!
 				$Properties = @{
-					"Name" = $group.properties.name -as [System.String]
-					"SamAccountName" = $group.properties.samaccountname -as [System.String]
-					"Description" = $group.properties.description -as [System.String]
-					"DistinguishedName" = $group.properties.distinguishedname -as [System.String]
-					"ADsPath" = $group.properties.adspath -as [System.String]
-					"ManagedBy" = $group.properties.managedby -as [System.String]
-					"GroupType" = $group.properties.grouptype -as [System.String]
+					"Name" = $group.properties.name -as [string]
+					"SamAccountName" = $group.properties.samaccountname -as [string]
+					"Description" = $group.properties.description -as [string]
+					"DistinguishedName" = $group.properties.distinguishedname -as [string]
+					"ADsPath" = $group.properties.adspath -as [string]
+					"ManagedBy" = $group.properties.managedby -as [string]
+					"GroupType" = $group.properties.grouptype -as [string]
 					"Member" = $group.properties.member
 					"ObjectCategory" = $group.properties.objectcategory
 					"ObjectClass" = $group.properties.objectclass

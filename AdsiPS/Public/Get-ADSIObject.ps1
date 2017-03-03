@@ -41,14 +41,14 @@
 	PARAM (
 		[Parameter(ParameterSetName = "SamAccountName")]
 		[Alias("Name", "DisplayName")]
-		[System.String]$SamAccountName,
+		[String]$SamAccountName,
 		
 		[Parameter(ParameterSetName = "DistinguishedName")]
-		[System.String]$DistinguishedName,
+		[String]$DistinguishedName,
 		
 		[Parameter(ValueFromPipelineByPropertyName = $true)]
 		[Alias("Domain", "DomainDN", "SearchRoot", "SearchBase")]
-		[System.String]$DomainDistinguishedName = $(([adsisearcher]"").Searchroot.path),
+		[String]$DomainDistinguishedName = $(([adsisearcher]"").Searchroot.path),
 		
 		[Alias("RunAs")]
 		[System.Management.Automation.PSCredential]
@@ -93,17 +93,17 @@
 				# Define the properties
 				#  The properties need to be lowercase!!!!!!!!
 				$Properties = @{
-					"DisplayName" = $Object.properties.displayname -as [System.String]
-					"Name" = $Object.properties.name -as [System.String]
-					"ObjectCategory" = $Object.properties.objectcategory -as [System.String]
-					"ObjectClass" = $Object.properties.objectclass -as [System.String]
-					"SamAccountName" = $Object.properties.samaccountname -as [System.String]
-					"Description" = $Object.properties.description -as [System.String]
-					"DistinguishedName" = $Object.properties.distinguishedname -as [System.String]
-					"ADsPath" = $Object.properties.adspath -as [System.String]
-					"LastLogon" = $Object.properties.lastlogon -as [System.String]
-					"WhenCreated" = $Object.properties.whencreated -as [System.String]
-					"WhenChanged" = $Object.properties.whenchanged -as [System.String]
+					"DisplayName" = $Object.properties.displayname -as [string]
+					"Name" = $Object.properties.name -as [string]
+					"ObjectCategory" = $Object.properties.objectcategory -as [string]
+					"ObjectClass" = $Object.properties.objectclass -as [string]
+					"SamAccountName" = $Object.properties.samaccountname -as [string]
+					"Description" = $Object.properties.description -as [string]
+					"DistinguishedName" = $Object.properties.distinguishedname -as [string]
+					"ADsPath" = $Object.properties.adspath -as [string]
+					"LastLogon" = $Object.properties.lastlogon -as [string]
+					"WhenCreated" = $Object.properties.whencreated -as [string]
+					"WhenChanged" = $Object.properties.whenchanged -as [string]
 				}
 				
 				# Output the info
@@ -112,7 +112,8 @@
 		}
 		CATCH
 		{
-			$PSCmdlet.ThrowTerminatingError($_)
+			Write-Warning -Message "[PROCESS] Something wrong happened!"
+			Write-Warning -Message $error[0].Exception.Message
 		}
 	}
 	END

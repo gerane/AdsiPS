@@ -39,7 +39,7 @@
 	(
 		[Parameter(ValueFromPipeline = $true)]
 		[Alias('UserName', 'Identity')]
-		[System.String]$SamAccountName,
+		[String]$SamAccountName,
 		
 		[Alias("RunAs")]
 		[System.Management.Automation.PSCredential]
@@ -47,7 +47,7 @@
 		$Credential = [System.Management.Automation.PSCredential]::Empty,
 		
 		[Alias('DomainDN', 'Domain')]
-		[System.String]$DomainDistinguishedName = $(([adsisearcher]"").Searchroot.path),
+		[String]$DomainDistinguishedName = $(([adsisearcher]"").Searchroot.path),
 		
 		[Alias('ResultLimit', 'Limit')]
 		[int]$SizeLimit = '100'
@@ -95,7 +95,7 @@
 					
 					# Prepare Output
 					$Properties = @{
-						SamAccountName = $Account.properties.samaccountname -as [System.String]
+						SamAccountName = $Account.properties.samaccountname -as [string]
 						GroupName = $principal.Translate([System.Security.Principal.NTAccount])
 					}
 					
@@ -108,7 +108,8 @@
 		
 		CATCH
 		{
-			$PSCmdlet.ThrowTerminatingError($_)
+			Write-Warning -Message "[PROCESS] Something wrong happened!"
+			Write-Warning -Message $error[0].Exception.Message
 		}
 	}#PROCESS
 	END { Write-Verbose -Message "[END] Function Get-ADSITokenGroup End." }

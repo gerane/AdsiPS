@@ -83,13 +83,13 @@ function Get-ADSIGroupMember
 		[System.Management.Automation.Credential()]
 		$Credential = [System.Management.Automation.PSCredential]::Empty,
 		
-		[System.String]$DomainName=[System.DirectoryServices.ActiveDirectory.Domain]::Getcurrentdomain(),
+		[System.String]$DomainName,
 		
 		[Parameter(ParameterSetName='All')]
-		[System.Management.Automation.SwitchParameter]$Recurse,
+		[Switch]$Recurse,
 		
 		[Parameter(ParameterSetName = 'Groups')]
-		[System.Management.Automation.SwitchParameter]$GroupsOnly
+		[Switch]$GroupsOnly
 	)
 	BEGIN
 	{
@@ -125,7 +125,7 @@ function Get-ADSIGroupMember
 		}
 		CATCH
 		{
-			$PSCmdlet.ThrowTerminatingError($_)
+			$Error[0]
 		}
 	}
 }

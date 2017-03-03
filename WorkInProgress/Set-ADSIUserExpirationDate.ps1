@@ -50,7 +50,7 @@ function Set-ADSIUserExpirationDate
         [System.Management.Automation.Credential()]
 		$Credential = [System.Management.Automation.PSCredential]::Empty,
 
-		[System.String]$DomainName)
+		[String]$DomainName)
 	
 	BEGIN
 	{
@@ -74,7 +74,7 @@ function Set-ADSIUserExpirationDate
 		}
 		CATCH
 		{
-			$PSCmdlet.ThrowTerminatingError($_)
+			Write-Error $Error[0]
 		}
 	}
 }

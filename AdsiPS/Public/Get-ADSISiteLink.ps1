@@ -53,7 +53,7 @@
 		$ForestName = [System.DirectoryServices.ActiveDirectory.Forest]::Getcurrentforest(),
 		
 		[Parameter(ValueFromPipelineByPropertyName=$true)]
-		[System.String]$Name
+		[String]$Name
 	)
 	
 	PROCESS
@@ -64,7 +64,8 @@
 		}
 		CATCH
 		{
-			$PSCmdlet.ThrowTerminatingError($_)
+			Write-Warning -Message "[Get-ADSISiteLink][PROCESS] Something wrong happened!"
+			Write-Warning -Message $error[0].Exception.Message
 		}
 	}
 }

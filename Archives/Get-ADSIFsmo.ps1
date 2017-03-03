@@ -23,7 +23,7 @@
 	PARAM (
 		[Parameter()]
 		[Alias("Domain", "DomainDN")]
-		[System.String]$DomainDistinguishedName = $(([adsisearcher]"").Searchroot.path),
+		[String]$DomainDistinguishedName = $(([adsisearcher]"").Searchroot.path),
 		
 		[Alias("RunAs")]
 		[System.Management.Automation.Credential()]

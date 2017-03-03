@@ -32,7 +32,7 @@
 	PARAM (
 		[Parameter()]
 		[Alias("Domain", "DomainDN")]
-		[System.String]$DomainDistinguishedName = $(([adsisearcher]"").Searchroot.path),
+		[String]$DomainDistinguishedName = $(([adsisearcher]"").Searchroot.path),
 		
 		[Alias("RunAs")]
 		[System.Management.Automation.PSCredential]
@@ -81,7 +81,8 @@
 		}#TRY
 		CATCH
 		{
-			$PSCmdlet.ThrowTerminatingError($_)
+			Write-Warning -Message "[PROCESS] Something wrong happened!"
+			Write-Warning -Message $error[0].Exception.Message
 		}
 	}#PROCESS
 	END

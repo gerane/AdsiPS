@@ -101,8 +101,8 @@
 		} #TRY
 		CATCH
 		{
-			Write-Warning -Message "[New-ADSIPrincipalContext][PROCESS] Issue while creating the context"
-			$PSCmdlet.ThrowTerminatingError($_)
+			Write-Error -Message "[New-ADSIPrincipalContext][PROCESS] Issue while creating the context"
+			$Error[0].Exception.Message
 		}
 	} #PROCESS
 }

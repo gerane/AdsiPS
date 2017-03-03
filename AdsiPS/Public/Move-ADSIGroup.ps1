@@ -50,7 +50,7 @@ function Move-ADSIGroup
 	param
 	(
 		[Parameter(Mandatory = $true)]
-		[System.String]$Identity,
+		[string]$Identity,
 
 		[Alias("RunAs")]
 		[System.Management.Automation.PSCredential]
@@ -91,7 +91,7 @@ function Move-ADSIGroup
 		}
 		CATCH
 		{
-			$PSCmdlet.ThrowTerminatingError($_)
+			Write-Error $error[0]
 		}
 	}
 }

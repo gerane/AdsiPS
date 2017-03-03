@@ -51,7 +51,7 @@
 		
 		$ForestName = [System.DirectoryServices.ActiveDirectory.Forest]::Getcurrentforest(),
 		
-		[System.String]$ComputerName
+		[String]$ComputerName
 	)
 	
 	PROCESS

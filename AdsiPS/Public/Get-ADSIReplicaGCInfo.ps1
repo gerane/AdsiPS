@@ -33,7 +33,7 @@
 #>
 	[CmdletBinding()]
 	param ([Parameter(Mandatory = $true)]
-		[System.String]$ComputerName,
+		[string]$ComputerName,
 		
 		[Alias("RunAs")]
 		[System.Management.Automation.PSCredential]

@@ -45,22 +45,22 @@
 	[CmdletBinding(DefaultParameterSetName = "SamAccountName")]
 	PARAM (
 		[Parameter(ParameterSetName = "DisplayName", Mandatory = $true)]
-		[System.String]$DisplayName,
+		[String]$DisplayName,
 		
 		[Parameter(ParameterSetName = "SamAccountName", Mandatory = $true)]
-		[System.String]$SamAccountName,
+		[String]$SamAccountName,
 		
 		[Parameter(ParameterSetName = "DistinguishedName", Mandatory = $true)]
-		[System.String]$DistinguishedName,
+		[String]$DistinguishedName,
 		
 		[Parameter(ParameterSetName = "MustChangePasswordAtNextLogon", Mandatory = $true)]
-		[System.Management.Automation.SwitchParameter]$MustChangePasswordAtNextLogon,
+		[Switch]$MustChangePasswordAtNextLogon,
 		
 		[Parameter(ParameterSetName = "PasswordNeverExpires", Mandatory = $true)]
-		[System.Management.Automation.SwitchParameter]$PasswordNeverExpires,
+		[Switch]$PasswordNeverExpires,
 		
 		[Parameter(ParameterSetName = "NeverLoggedOn", Mandatory = $true)]
-		[System.Management.Automation.SwitchParameter]$NeverLoggedOn,
+		[Switch]$NeverLoggedOn,
 		
 		[Parameter(ParameterSetName = "DialIn", Mandatory = $true)]
 		[boolean]$DialIn,
@@ -71,7 +71,7 @@
 		
 		[Parameter()]
 		[Alias("DomainDN", "Domain")]
-		[System.String]$DomainDistinguishedName = $(([adsisearcher]"").Searchroot.path),
+		[String]$DomainDistinguishedName = $(([adsisearcher]"").Searchroot.path),
 		
 		[Alias("ResultLimit", "Limit")]
 		[int]$SizeLimit = '100'
@@ -138,24 +138,24 @@
 				# Define the properties
 				#  The properties need to be lowercase!!!!!!!!
 				$Properties = @{
-					"DisplayName" = $user.properties.displayname -as [System.String]
-					"SamAccountName" = $user.properties.samaccountname -as [System.String]
-					"Description" = $user.properties.description -as [System.String]
-					"DistinguishedName" = $user.properties.distinguishedname -as [System.String]
-					"ADsPath" = $user.properties.adspath -as [System.String]
+					"DisplayName" = $user.properties.displayname -as [string]
+					"SamAccountName" = $user.properties.samaccountname -as [string]
+					"Description" = $user.properties.description -as [string]
+					"DistinguishedName" = $user.properties.distinguishedname -as [string]
+					"ADsPath" = $user.properties.adspath -as [string]
 					"MemberOf" = $user.properties.memberof
-					"Location" = $user.properties.l -as [System.String]
-					"Country" = $user.properties.co -as [System.String]
-					"PostalCode" = $user.Properties.postalcode -as [System.String]
-					"Mail" = $user.properties.mail -as [System.String]
-					"TelephoneNumber" = $user.properties.telephonenumber -as [System.String]
-					"LastLogonTimeStamp" = $user.properties.lastlogontimestamp -as [System.String]
-					"ObjectCategory" = $user.properties.objectcategory -as [System.String]
-					"Manager" = $user.properties.manager -as [System.String]
-					"HomeDrive" = $user.properties.homedrive -as [System.String]
-					"LogonCount" = $user.properties.logoncount -as [System.String]
-					"DirectReport" = $user.properties.l -as [System.String]
-					"useraccountcontrol" = $user.properties.useraccountcontrol -as [System.String]
+					"Location" = $user.properties.l -as [string]
+					"Country" = $user.properties.co -as [string]
+					"PostalCode" = $user.Properties.postalcode -as [string]
+					"Mail" = $user.properties.mail -as [string]
+					"TelephoneNumber" = $user.properties.telephonenumber -as [string]
+					"LastLogonTimeStamp" = $user.properties.lastlogontimestamp -as [string]
+					"ObjectCategory" = $user.properties.objectcategory -as [string]
+					"Manager" = $user.properties.manager -as [string]
+					"HomeDrive" = $user.properties.homedrive -as [string]
+					"LogonCount" = $user.properties.logoncount -as [string]
+					"DirectReport" = $user.properties.l -as [string]
+					"useraccountcontrol" = $user.properties.useraccountcontrol -as [string]
 					
 					<#
 					lastlogoff

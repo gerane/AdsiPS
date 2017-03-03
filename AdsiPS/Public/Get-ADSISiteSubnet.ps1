@@ -54,7 +54,7 @@
 		
 		[Parameter(ValueFromPipelineByPropertyName=$true)]
         [Alias("Name")]
-		[System.String]$SubnetName
+		[String]$SubnetName
 	)
     BEGIN{
         Add-Type -AssemblyName System.DirectoryServices.AccountManagement
@@ -82,7 +82,8 @@
 		}
 		CATCH
 		{
-			$PSCmdlet.ThrowTerminatingError($_)
+			Write-Warning -Message "[Get-ADSISiteSubnet][PROCESS] Something wrong happened!"
+			$error[0]
 		}
 	}
 }

@@ -51,7 +51,8 @@
 		}
 		CATCH
 		{
-			$PSCmdlet.ThrowTerminatingError($_)
+			Write-Warning -Message '[Get-ADSIGlobalCatalog][PROCESS] Something wrong happened!'
+			Write-Warning -Message $error[0].Exception.Message
 		}
 	}
 }

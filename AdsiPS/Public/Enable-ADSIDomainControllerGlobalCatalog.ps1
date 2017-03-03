@@ -47,7 +47,7 @@
 	param
 	(
 		[Parameter(Mandatory = $true)]
-		[System.String]$ComputerName,
+		[string]$ComputerName,
 		
 		[Alias("RunAs")]
 		[System.Management.Automation.PSCredential]
@@ -74,7 +74,8 @@
 		}
 		CATCH
 		{
-			$PSCmdlet.ThrowTerminatingError($_)
+			Write-Error -Message "[Enable-ADSIDomainControllerGlobalCatalog][PROCESS] Something wrong happened"
+			$Error[0].Exception.Message
 		}
 	}
 }

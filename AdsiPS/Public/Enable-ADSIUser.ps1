@@ -67,7 +67,7 @@ function Enable-ADSIUser
 		[System.Management.Automation.Credential()]
 		$Credential = [System.Management.Automation.PSCredential]::Empty,
 
-		[System.String]$DomainName)
+		[String]$DomainName)
 	
 	BEGIN
 	{
@@ -93,7 +93,7 @@ function Enable-ADSIUser
 		}
 		CATCH
 		{
-			$PSCmdlet.ThrowTerminatingError($_)
+			Write-Error $Error[0]
 		}
 	}
 }
