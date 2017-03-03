@@ -67,7 +67,7 @@ function Disable-ADSIUser
 		[System.Management.Automation.Credential()]
 		$Credential = [System.Management.Automation.PSCredential]::Empty,
 		
-		[String]$DomainName)
+		[System.String]$DomainName)
 	
 	BEGIN
 	{
@@ -93,7 +93,7 @@ function Disable-ADSIUser
 		}
 		CATCH
 		{
-			Write-Error $Error[0]
+			$PSCmdlet.ThrowTerminatingError($_)
 		}
 	}
 }

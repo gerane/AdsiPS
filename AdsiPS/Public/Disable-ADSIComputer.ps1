@@ -64,7 +64,7 @@ function Disable-ADSIComputer
 		[System.Management.Automation.Credential()]
 		$Credential = [System.Management.Automation.PSCredential]::Empty,
 		
-		[String]$DomainName)
+		[System.String]$DomainName)
 	
 	BEGIN
 	{
@@ -90,7 +90,7 @@ function Disable-ADSIComputer
 		}
 		CATCH
 		{
-			Write-Error $Error[0]
+			$PSCmdlet.ThrowTerminatingError($_)
 		}
 	}
 }

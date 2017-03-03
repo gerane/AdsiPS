@@ -60,14 +60,14 @@ function Get-ADSIComputer
 #>
 	[CmdletBinding(DefaultParameterSetName="All")]
 	param ([Parameter(Mandatory=$true,ParameterSetName="Identity")]
-		[string]$Identity,
+		[System.String]$Identity,
 		
 		[Alias("RunAs")]
 		[System.Management.Automation.PSCredential]
 		[System.Management.Automation.Credential()]
 		$Credential = [System.Management.Automation.PSCredential]::Empty,
 
-		[String]$DomainName
+		[System.String]$DomainName = [System.DirectoryServices.ActiveDirectory.Domain]::GetCurrentDomain()
 	)
 	BEGIN
 	{
@@ -99,7 +99,7 @@ function Get-ADSIComputer
         }
         CATCH
         {
-        $Error[0]
+			$PSCmdlet.ThrowTerminatingError($_)
         }
 	}
 }

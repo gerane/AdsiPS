@@ -42,19 +42,19 @@
 	param
 	(
 		[Parameter(Mandatory = $true)]
-		[String]$SubnetName,
+		[System.String]$SubnetName,
 
 		[Parameter(Mandatory = $true)]
-		[String]$SiteName,
+		[System.String]$SiteName,
 
-		[String]$Location,
+		[System.String]$Location,
 
 		[Alias("RunAs")]
 		[System.Management.Automation.PSCredential]
 		[System.Management.Automation.Credential()]
 		$Credential = [System.Management.Automation.PSCredential]::Empty,
 
-		[String]$ForestName
+		[System.String]$ForestName
 	)
 	
 	BEGIN
@@ -92,8 +92,7 @@
 		}
 		CATCH
 		{
-			$Error[0]
-			break
+			$PSCmdlet.ThrowTerminatingError($_)
 		}
 	}
 	END

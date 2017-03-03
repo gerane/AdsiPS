@@ -37,7 +37,7 @@ function Test-ADSICredential
 	(
 		[Parameter(Mandatory)]
 		[Alias("UserName")]
-		[string]$AccountName,
+		[System.String]$AccountName,
 		
 		[Parameter(Mandatory)]
 		[System.Security.SecureString]$AccountPassword
@@ -57,8 +57,7 @@ function Test-ADSICredential
 		}
 		CATCH
 		{
-			Write-Warning -Message "[PROCESS] Issue while running the function"
-			$Error[0].Exception.Message
+			$PSCmdlet.ThrowTerminatingError($_)
 		}
 	}
 }

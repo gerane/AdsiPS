@@ -48,14 +48,14 @@
 #>	
 	[CmdletBinding()]
 	param ([Parameter(Mandatory = $true)]
-		[string]$ComputerName = $null,
+		[System.String]$ComputerName = $null,
 		
 		[Alias("RunAs")]
 		[System.Management.Automation.PSCredential]
 		[System.Management.Automation.Credential()]
 		$Credential = [System.Management.Automation.PSCredential]::Empty,
 		
-		[Switch]$Recurse
+		[System.Management.Automation.SwitchParameter]$Recurse
 	)
 	
 	if ($ComputerName)

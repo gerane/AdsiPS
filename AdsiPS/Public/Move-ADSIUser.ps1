@@ -53,14 +53,14 @@ function Move-ADSIUser
 	param
 	(
 		[Parameter(Mandatory = $true)]
-		[string]$Identity,
+		[System.String]$Identity,
 		
 		[Alias("RunAs")]
 		[System.Management.Automation.PSCredential]
 		[System.Management.Automation.Credential()]
 		$Credential = [System.Management.Automation.PSCredential]::Empty,
 		
-		[String]$DomainName,
+		[System.String]$DomainName=[System.DirectoryServices.ActiveDirectory.Domain]::Getcurrentdomain(),
 		
 		$Destination
 	)

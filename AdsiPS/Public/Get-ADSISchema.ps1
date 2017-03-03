@@ -34,19 +34,19 @@
 		[Parameter(ParameterSetName = 'Default',
 				   Mandatory = $true)]
 		[ValidateSet("mandatory", "optional")]
-		[String]$PropertyType,
+		[System.String]$PropertyType,
 		
 		[Parameter(ParameterSetName = 'Default',
 				   Mandatory = $true)]
-		[String]$ClassName,
+		[System.String]$ClassName,
 		
 		[Parameter(ParameterSetName = 'AllClasses',
 				   Mandatory = $true)]
-		[Switch]$AllClasses,
+		[System.Management.Automation.SwitchParameter]$AllClasses,
 		
 		[Parameter(ParameterSetName = 'FindClasses',
 				   Mandatory = $true)]
-		[String]$FindClassName
+		[System.String]$FindClassName
 	)
 	
 	BEGIN
@@ -56,35 +56,43 @@
 			$schema = [DirectoryServices.ActiveDirectory.ActiveDirectorySchema]::GetCurrentSchema()
 			
 		}
-		CATCH { }
+		CATCH {
+			$PSCmdlet.ThrowTerminatingError($_)
+		}
 	}
 	
 	PROCESS
 	{
-		IF ($PSBoundParameters['AllClasses'])
-		{
-			$schema.FindAllClasses().Name
-		}
-		IF ($PSBoundParameters['FindClassName'])
-		{
-			$schema.FindAllClasses() | Where-Object { $_.name -match $FindClassName } | Select-Object -Property Name
-		}
-		
-		ELSE
-		{
-			
-			Switch ($PropertyType)
+		TRY {
+
+			IF ($PSBoundParameters['AllClasses'])
 			{
-				"mandatory"
+				$schema.FindAllClasses().Name
+			}
+			IF ($PSBoundParameters['FindClassName'])
+			{
+				$schema.FindAllClasses() | Where-Object { $_.name -match $FindClassName } | Select-Object -Property Name
+			}
+			
+			ELSE
+			{
+				
+				Switch ($PropertyType)
 				{
-					($schema.FindClass("$ClassName")).MandatoryProperties
-				}
-				"optional"
-				{
-					($schema.FindClass("$ClassName")).OptionalProperties
-				}
-			}#Switch
-		}#ELSE
-		
+					"mandatory"
+					{
+						($schema.FindClass("$ClassName")).MandatoryProperties
+					}
+					"optional"
+					{
+						($schema.FindClass("$ClassName")).OptionalProperties
+					}
+				}#Switch
+			}#ELSE
+		}
+		CATCH
+		{
+			$PSCmdlet.ThrowTerminatingError($_)
+		}
 	}#PROCESS
 }

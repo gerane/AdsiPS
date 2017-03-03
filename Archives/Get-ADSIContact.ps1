@@ -49,20 +49,20 @@
 	[CmdletBinding(DefaultParameterSetName = "All")]
 	PARAM (
 		[Parameter(ParameterSetName = "Name")]
-		[String]$Name,
+		[System.String]$Name,
 		
 		[Parameter(ParameterSetName = "SamAccountName")]
 		$SamAccountName,
 		
 		[Parameter(ParameterSetName = "DistinguishedName")]
-		[String]$DistinguishedName,
+		[System.String]$DistinguishedName,
 		
 		[Parameter(ParameterSetName = "All")]
-		[String]$All,
+		[System.String]$All,
 		
 		[Parameter(ValueFromPipelineByPropertyName = $true)]
 		[Alias("Domain", "DomainDN")]
-		[String]$DomainDistinguishedName = $(([adsisearcher]"").Searchroot.path),
+		[System.String]$DomainDistinguishedName = $(([adsisearcher]"").Searchroot.path),
 		
 		[Alias("RunAs")]
 		[System.Management.Automation.Credential()]
@@ -124,35 +124,35 @@
 				# Define the properties
 				#  The properties need to be lowercase!!!!!!!!
 				$Properties = @{
-					"Name" = $contact.properties.name -as [string]
-					"DistinguishedName" = $contact.properties.distinguishedname -as [string]
-					"ADsPath" = $contact.properties.adspath -as [string]
-					"ObjectCategory" = $contact.properties.objectcategory -as [string]
-					"ObjectClass" = $contact.properties.objectclass -as [string]
+					"Name" = $contact.properties.name -as [System.String]
+					"DistinguishedName" = $contact.properties.distinguishedname -as [System.String]
+					"ADsPath" = $contact.properties.adspath -as [System.String]
+					"ObjectCategory" = $contact.properties.objectcategory -as [System.String]
+					"ObjectClass" = $contact.properties.objectclass -as [System.String]
 					"ObjectGuid" = $contact.properties.objectguid
-					"WhenCreated" = $contact.properties.whencreated -as [string] -as [datetime]
-					"WhenChanged" = $contact.properties.whenchanged -as [string] -as [datetime]
-					"usncreated" = $contact.properties.usncreated -as [string]
-					"usnchanged" = $contact.properties.usnchanged -as [string]
+					"WhenCreated" = $contact.properties.whencreated -as [System.String] -as [datetime]
+					"WhenChanged" = $contact.properties.whenchanged -as [System.String] -as [datetime]
+					"usncreated" = $contact.properties.usncreated -as [System.String]
+					"usnchanged" = $contact.properties.usnchanged -as [System.String]
 					"dscorepropagationdata" = $contact.properties.dscorepropagationdata
-					"instancetype" = $contact.properties.instancetype -as [string]
-					"CountryCode" = $contact.properties.countrycode -as [string]
-					"PrimaryGroupID" = $contact.properties.primarygroupid -as [string]
+					"instancetype" = $contact.properties.instancetype -as [System.String]
+					"CountryCode" = $contact.properties.countrycode -as [System.String]
+					"PrimaryGroupID" = $contact.properties.primarygroupid -as [System.String]
 					"AdminCount" = $contact.properties.admincount
-					"SamAccountName" = $contact.properties.samaccountname -as [string]
+					"SamAccountName" = $contact.properties.samaccountname -as [System.String]
 					"SamAccountType" = $contact.properties.samaccounttype
 					"ObjectSid" = $contact.properties.objectsid
-					"Displayname" = $contact.properties.displayname -as [string]
+					"Displayname" = $contact.properties.displayname -as [System.String]
 					"Accountexpires" = $contact.properties.accountexpires
-					"UserPrincipalName" = $contact.properties.userprincipalname -as [string]
+					"UserPrincipalName" = $contact.properties.userprincipalname -as [System.String]
 					"GivenName" = $contact.properties.givenname
 					"CodePage" = $contact.properties.codepage
-					"Description" = $contact.properties.description -as [string]
+					"Description" = $contact.properties.description -as [System.String]
 					"Logoncount" = $contact.properties.logoncount
 					"PwdLastSet" = $contact.properties.pwdlastset
 					"LastLogonTimeStamp" = $contact.properties.lastlogontimestamp
 					"UserAccountControl" = $contact.properties.useraccountcontrol
-					"cn" = $contact.properties.cn -as [string]
+					"cn" = $contact.properties.cn -as [System.String]
 				}
 				
 				# Output the info

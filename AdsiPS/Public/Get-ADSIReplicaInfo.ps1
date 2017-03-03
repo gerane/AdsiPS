@@ -81,9 +81,9 @@
 	github.com/lazywinadmin/AdsiPS 
 #>
 	[CmdletBinding()]
-	param ([string]$ComputerName = $null,
+	param ([System.String]$ComputerName = $null,
 		
-		[string]$Domain = $null,
+		[System.String]$Domain = $null,
 		
 		[Alias("RunAs")]
 		[System.Management.Automation.PSCredential]
@@ -91,19 +91,19 @@
 		$Credential = [System.Management.Automation.PSCredential]::Empty,
 		
 		[ValidateSet("Schema", "Configuration", "Domain", "All")]
-		[String]$NamingContext = "Domain",
+		[System.String]$NamingContext = "Domain",
 		
-		[Switch]$Neighbors,
+		[System.Management.Automation.SwitchParameter]$Neighbors,
 		
-		[Switch]$Latency,
+		[System.Management.Automation.SwitchParameter]$Latency,
 		
-		[Switch]$Cursors,
+		[System.Management.Automation.SwitchParameter]$Cursors,
 		
-		[Switch]$Errors,
+		[System.Management.Automation.SwitchParameter]$Errors,
 		
-		[Switch]$DisplayDC,
+		[System.Management.Automation.SwitchParameter]$DisplayDC,
 		
-		[Switch]$FormatTable
+		[System.Management.Automation.SwitchParameter]$FormatTable
 	)
 	
 	
@@ -167,7 +167,7 @@
 	# If none of switches are present, default to at least one, so we have something to show
 	if (!$Latency.IsPresent -and !$Neighbors.IsPresent -and !$Errors.IsPresent -and !$Cursors.IsPresent)
 	{
-		[switch]$Latency = $true
+		[System.Management.Automation.SwitchParameter]$Latency = $true
 	}
 	
 	# Determine which DC to use depending on the context type. 

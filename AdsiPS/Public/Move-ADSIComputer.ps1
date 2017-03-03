@@ -45,14 +45,14 @@ function Move-ADSIComputer
 #>
 	[CmdletBinding()]
 	param ([Parameter(Mandatory=$true)]
-		[string]$Identity,
+		[System.String]$Identity,
 		
 		[Alias("RunAs")]
 		[System.Management.Automation.PSCredential]
 		[System.Management.Automation.Credential()]
 		$Credential = [System.Management.Automation.PSCredential]::Empty,
 
-		$DomainName,
+		$DomainName=[System.DirectoryServices.ActiveDirectory.Domain]::Getcurrentdomain(),
 
 		$Destination
 	)
@@ -86,7 +86,7 @@ function Move-ADSIComputer
         }
         CATCH
         {
-        $Error[0]
+        	$PSCmdlet.ThrowTerminatingError($_)
         }
 	}
 }
